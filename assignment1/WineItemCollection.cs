@@ -1,7 +1,4 @@
-﻿//Author: David Barnes
-//CIS 237
-//Assignment 1
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,77 +6,56 @@ using System.Threading.Tasks;
 
 namespace assignment1
 {
-    class WineItemCollection : IWineCollection
+    /// <summary>
+    ///  A Class used to hold and search through the wine database
+    /// </summary>
+
+    class BeverageCollection
     {
-        //Private Variables
-        WineItem[] wineItems;
-        int wineItemsLength;
+        private List<Beverage> collectionList;
+        public BeverageCollection(EntityProcessor refrence)
+            : this(refrence.BeverageArray)
+        { }
 
-        //Constuctor. Must pass the size of the collection.
-        public WineItemCollection(int size)
+        public BeverageCollection(Beverage[] creationArray)
         {
-            wineItems = new WineItem[size];
-            wineItemsLength = 0;
-        }
-
-        //Add a new item to the collection
-        public void AddNewItem(string id, string description, string pack)
-        {
-            //Add a new WineItem to the collection. Increase the Length variable.
-            wineItems[wineItemsLength] = new WineItem(id, description, pack);
-            wineItemsLength++;
-        }
-        
-        //Get The Print String Array For All Items
-        public string[] GetPrintStringsForAllItems()
-        {
-            //Create and array to hold all of the printed strings
-            string[] allItemStrings = new string[wineItemsLength];
-            //set a counter to be used
-            int counter = 0;
-
-            //If the wineItemsLength is greater than 0, create the array of strings
-            if (wineItemsLength > 0)
+            collectionList = new List<Beverage>();
+            for (int i = 0; i < creationArray.Length; i++)
             {
-                //For each item in the collection
-                foreach (WineItem wineItem in wineItems)
-                {
-                    //if the current item is not null.
-                    if (wineItem != null)
-                    {
-                        //Add the results of calling ToString on the item to the string array.
-                        allItemStrings[counter] = wineItem.ToString();
-                        counter++;
-                    }
-                }
+                collectionList.Add(creationArray[i]);
             }
-            //Return the array of item strings
-            return allItemStrings;
         }
-
-        //Find an item by it's Id
-        public string FindById(string id)
+        public Beverage findBeverage(String id)
         {
-            //Declare return string for the possible found item
-            string returnString = null;
-
-            //For each WineItem in wineItems
-            foreach (WineItem wineItem in wineItems)
+            foreach(Beverage b in collectionList)
             {
-                //If the wineItem is not null
-                if (wineItem != null)
-                {
-                    //if the wineItem Id is the same as the search id
-                    if (wineItem.Id == id)
-                    {
-                        //Set the return string to the result of the wineItem's ToString method
-                        returnString = wineItem.ToString();
-                    }
-                }
+                if(b.id.Equals(id))
+                    return b;
             }
-            //Return the returnString
+            return null;
+        }
+        /// <summary>
+        /// removes the wine item matching the input wine item from the list
+        /// </summary>
+        /// <param name="removealItem"></param>
+        public void removeBeverage(Beverage removealItem)
+        {
+            collectionList.Remove(removealItem);
+        }
+        public void AddWine(wineItem addedWine)
+        {
+            collectionList.Add(addedWine);
+        }
+        /// <summary>
+        /// outputs all the wine items in the array
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            String returnString = "";
+            foreach (wineItem w in collectionList)
+                returnString += w.ToString() + Environment.NewLine;
             return returnString;
         }
-
     }
 }

@@ -1,7 +1,4 @@
-﻿//Author: David Barnes
-//CIS 237
-//Assignment 1
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,39 +6,65 @@ using System.Threading.Tasks;
 
 namespace assignment1
 {
-    class WineItem
+    /// <summary>
+    /// A class to hold a single wine
+    /// </summary>
+    class wineItem
     {
-        //Private Class Level Variables
-        private string id;
-        private string description;
-        private string pack;
+        //class variables
+        protected String wineId;
+        private String wineDescriptionString;
+        private String winePackString;
 
-        //Public Property to Get the Id
-        public string Id
+        public wineItem(String id, String description, String pack)
+        {
+            wineId = id;
+            wineDescriptionString = description;
+            winePackString = pack;
+        }
+        //for finding a wine item
+        public wineItem(String id)
+        {
+            wineId = id;
+        }
+        //non editable variables
+        public String WineId
         {
             get
             {
-                return this.id;
+                return wineId;
             }
         }
 
-        //Default Constuctor
-        public WineItem() { }
-
-        //3 Parameter Constructor
-        public WineItem(string id, string description, string pack)
+        public String WineDescription
         {
-            this.id = id;
-            this.description = description;
-            this.pack = pack;
+            get
+            {
+                return wineDescriptionString;
+            }
         }
 
-        //Override ToString Method to concatenate the fields together.
+        public String WinePack
+        {
+            get
+            {
+                return winePackString;
+            }
+        }
+        //overridden ToString
         public override string ToString()
         {
-            return "Id: " + id + ", Description: " + description + ", Pack: " + pack;
+            return "ID: " + wineId + "    Description: " + wineDescriptionString + "    Pack: " + winePackString;
         }
-
-
+        //equal if both are same class and share the same ID
+        public override bool Equals(object obj)
+        {
+            if (obj.GetType().Equals(this.GetType()))
+            {
+                wineItem comp = (wineItem)obj;
+                return comp.wineId.Equals(wineId);
+            }
+            return false;
+        }
     }
 }
