@@ -9,12 +9,10 @@ namespace assignment1
     //A class for controlling the ui. There shoud only be one instance in a program
     class controlClass
     {
-        EntityProcessor processCSV;
-        BeverageCollection collectedWineItems;
-        public controlClass(BeverageCollection collection, EntityProcessor processor)
+        EntityProcessor processDataBase;
+        public controlClass()
         {
-            processCSV = processor;
-            collectedWineItems = collection;
+            processDataBase = new EntityProcessor();
         }
         //only public methiod starts the ui run through
         public void PrintPrompt()
@@ -97,7 +95,7 @@ namespace assignment1
                 {
                     // add wine item
                     wineItem addWine = new wineItem(peramitersStrings[0], peramitersStrings[1], peramitersStrings[2]);
-                    collectedWineItems.AddWine(addWine);
+                    collectedWineItems.AddBeverage(addWine);
                     processCSV.AddWine(addWine);
                 }
                 else
